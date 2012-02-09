@@ -1,3 +1,1 @@
-[submodule "lib/vendor/php-resque"]
-	path = lib/vendor/php-resque
-	url = git@github.com:devpips/php-resque.git
+
