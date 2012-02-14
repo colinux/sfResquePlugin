@@ -20,6 +20,7 @@ class resqueWorkerTask extends sfBaseTask
     
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name. Required if you provide an --env option !', 'backend'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       
       new sfCommandOption('interval', null, sfCommandOption::PARAMETER_OPTIONAL, '', 5),

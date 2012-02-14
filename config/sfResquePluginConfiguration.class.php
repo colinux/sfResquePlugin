@@ -29,18 +29,21 @@ class sfResquePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
+    // Be careful: an appConfig has only been created if the task was run with an --application argument
+    // This means --env is ignored if an is not used, so the default resque configuration
+    // non-environment specific will be used.
     if ($this->configuration instanceof sfApplicationConfiguration)
     {
       $configCache = $this->configuration->getConfigCache();
       $configCache->registerConfigHandler(self::CONFIG_PATH, 'sfResqueConfigHandler');
       $config = include $configCache->checkConfig(self::CONFIG_PATH);
     }
-    else
+    else // environment not used!
     {
       $configPaths = $this->configuration->getConfigPaths(self::CONFIG_PATH);
-      $config = sfRedisConfigHandler::getConfiguration($configPaths);
+      $config = sfResqueConfigHandler::getConfiguration($configPaths);
     }
-    
+
     Resque::setBackend($config['server'], $config['database']);
   }
 }
