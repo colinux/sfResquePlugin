@@ -1,7 +1,7 @@
 <?php
 
 function run_resque($queues = '*', $options = array(), $logLevel = 0) {
-    $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', true);
+    $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', false);
 
     $worker = new sfResqueWorker($configuration, $queues, $options);
     $worker->logLevel = $logLevel;
