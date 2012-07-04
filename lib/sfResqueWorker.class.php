@@ -45,7 +45,12 @@ class sfResqueWorker extends Resque_Worker
   public function doneWorking()
   {
     $job = $this->job();
-    sfResque::remove_track_queue($job['queue'], sfResque::tokenize($job['payload']['class'], $job['payload']['args']));
+
+    // ensure we have really a job and we're not a child
+    // because doneWorking() is called for father (holding jobs) and childs
+    if ($job != array()) {
+      sfResque::remove_track_queue($job['queue'], sfResque::tokenize($job['payload']['class'], $job['payload']['args']));
+    }
     return parent::doneWorking();
   }
     
